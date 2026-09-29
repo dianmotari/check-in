@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checking In! 👋</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #121212, #1f1f2e);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #282a36;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 30px 24px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            color: #f8f8f2;
+            line-height: 1.4;
+        }
+        .btn {
+            background: #6272a4;
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 12px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            background: #7082b6;
+        }
+        .btn-hungry {
+            background: #ff5555;
+        }
+        .btn-hungry:hover {
+            background: #ff6e6e;
+        }
+        .input-group {
+            margin-top: 15px;
+            display: none;
+        }
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #6272a4;
+            background: #44475a;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 4px solid #44475a;
+            border-top: 4px solid #50fa7b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            display: none;
+            font-size: 0.95rem;
+            color: #ffb86c;
+            font-weight: bold;
+        }
+        .final-message {
+            display: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #50fa7b;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id="card">
+    <!-- Step 1: Initial Question -->
+    <div id="step-1">
+        <h2>Aey, uko poa lakini? 🤔</h2>
+        <button class="btn" onclick="handleOption1()">Niko poa sana 👍</button>
+        <button class="btn btn-hungry" onclick="showPhoneInput()">Niko njaa uneza niekea tu thao 😅</button>
+    </div>
+
+    <!-- Step 2: Phone Input (Option 2) -->
+    <div id="input-step" class="input-group">
+        <h2>Weka namba yako ya M-PESA hapa tupange izo stori: 📲</h2>
+        <input type="tel" id="phone" placeholder="0712345678" maxlength="10">
+        <button class="btn" style="background:#50fa7b; color:#121212;" onclick="startPromptAnimation()">Submit</button>
+    </div>
+
+    <!-- Step 3: Loading Animation -->
+    <div class="loader" id="loader"></div>
+    <div class="loading-text" id="loading-text">USITOKE KWA SITE! Processing M-PESA request... ⏳</div>
+
+    <!-- Step 4: Final Messages -->
+    <div class="final-message" id="final-message"></div>
+</div>
+
+<script>
+    function handleOption1() {
+        document.getElementById('step-1').style.display = 'none';
+        const finalMsg = document.getElementById('final-message');
+        finalMsg.style.display = 'block';
+        finalMsg.innerHTML = 'Si basi uniekee thao kwa hii number <br><br> <span style="color:#ffb86c; font-size:1.5rem;">0140175714</span> 🤗';
+    }
+
+    function showPhoneInput() {
+        document.getElementById('step-1').style.display = 'none';
+        document.getElementById('input-step').style.display = 'block';
+    }
+
+    function startPromptAnimation() {
+        const phone = document.getElementById('phone').value.trim();
+        if (phone.length < 10) {
+            alert('Tafadhali weka namba sahihi!');
+            return;
+        }
+
+        document.getElementById('input-step').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('loading-text').style.display = 'block';
+
+        // Fake processing delay for 3.5 seconds
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('loading-text').style.display = 'none';
+            
+            const finalMsg = document.getElementById('final-message');
+            finalMsg.style.display = 'block';
+            finalMsg.style.color = '#ff5555';
+            finalMsg.innerHTML = 'Wee ni fala sana 😂,, jitegemee! 🏃‍♂️💨';
+        }, 3500);
+    }
+</script>
+
+</body>
+</html>
