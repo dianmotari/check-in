@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checking In! 👋</title>
+    <title>Hii Uko Aje?</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
         body {
-            background: linear-gradient(135deg, #121212, #1f1f2e);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #ffffff;
             display: flex;
             align-items: center;
@@ -20,150 +20,218 @@
             min-height: 100vh;
             padding: 20px;
         }
-        .card {
-            background: #282a36;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             padding: 30px 24px;
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
-            transition: all 0.3s ease;
         }
-        h2 {
-            font-size: 1.4rem;
+        .msg-rect {
+            background: #ffffff;
+            color: #1f2937;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 600;
             margin-bottom: 24px;
-            color: #f8f8f2;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             line-height: 1.4;
         }
-        .btn {
-            background: #6272a4;
-            color: #fff;
+        .btn-oval {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: #ffffff;
             border: none;
             padding: 14px 20px;
-            border-radius: 10px;
+            border-radius: 30px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             width: 100%;
-            margin-bottom: 12px;
-            transition: transform 0.2s, background 0.2s;
+            margin-bottom: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        .btn:hover {
+        .btn-oval:hover {
             transform: translateY(-2px);
-            background: #7082b6;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
-        .btn-hungry {
-            background: #ff5555;
-        }
-        .btn-hungry:hover {
-            background: #ff6e6e;
-        }
-        .input-group {
+        .btn-finish {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             margin-top: 15px;
-            display: none;
         }
-        input[type="tel"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid #6272a4;
-            background: #44475a;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            margin-bottom: 12px;
+
+        /* Safaricom Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .safari-card {
+            background: #000000;
+            border: 2px solid #10b981;
+            border-radius: 18px;
+            padding: 30px 24px;
+            width: 90%;
+            max-width: 350px;
             text-align: center;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
         }
-        .loader {
-            display: none;
-            margin: 20px auto;
-            border: 4px solid #44475a;
-            border-top: 4px solid #50fa7b;
+        .safari-header {
+            color: #10b981;
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .safari-loader {
+            border: 4px solid #1f2937;
+            border-top: 4px solid #10b981;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+            width: 50px; height: 50px;
+            animation: spin 0.9s linear infinite;
+            margin: 20px auto;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .loading-text {
-            display: none;
+        .safari-text {
+            color: #e5e7eb;
             font-size: 0.95rem;
-            color: #ffb86c;
-            font-weight: bold;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
-        .final-message {
-            display: none;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #50fa7b;
-            margin-top: 15px;
-            line-height: 1.5;
+        .progress-bar-bg {
+            background: #374151;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
         }
+        .progress-bar-fill {
+            background: #10b981;
+            height: 100%;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .timer-txt {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="card" id="card">
-    <!-- Step 1: Initial Question -->
-    <div id="step-1">
-        <h2>Aey, uko poa lakini? 🤔</h2>
-        <button class="btn" onclick="handleOption1()">Niko poa sana 👍</button>
-        <button class="btn btn-hungry" onclick="showPhoneInput()">Niko njaa uneza niekea tu thao 😅</button>
+<div class="container" id="main-container">
+    <!-- STEP 1 -->
+    <div id="step-start">
+        <div class="msg-rect">Hii uko aje?</div>
+        <button class="btn-oval" onclick="goBranchLeft()">Niko poa labda wewe</button>
+        <button class="btn-oval" onclick="goBranchRight()">Niko poa but niko njaa</button>
     </div>
 
-    <!-- Step 2: Phone Input (Option 2) -->
-    <div id="input-step" class="input-group">
-        <h2>Weka namba yako ya M-PESA hapa tupange izo stori: 📲</h2>
-        <input type="tel" id="phone" placeholder="0712345678" maxlength="10">
-        <button class="btn" style="background:#50fa7b; color:#121212;" onclick="startPromptAnimation()">Submit</button>
+    <!-- LEFT BRANCH STEP 2 -->
+    <div id="step-left-1" class="hidden">
+        <div class="msg-rect">Eii nilijua uko poa<br>Naomba tu thao pekee 🥹</div>
+        <div class="msg-rect" style="margin-top: -10px;">Utaniekea leo ama kesho</div>
+        <button class="btn-oval" onclick="finishSession('Sawa nangoja 😊')">Leo</button>
+        <button class="btn-oval" onclick="finishSession('Wee kumbe ni mzuri, lala poa 😴')">Kesho</button>
     </div>
 
-    <!-- Step 3: Loading Animation -->
-    <div class="loader" id="loader"></div>
-    <div class="loading-text" id="loading-text">USITOKE KWA SITE! Processing M-PESA request... ⏳</div>
+    <!-- RIGHT BRANCH STEP 2 -->
+    <div id="step-right-1" class="hidden">
+        <div class="msg-rect">Unataka ngapi?</div>
+        <button class="btn-oval" onclick="triggerSafaricomPrompt()">100 /=</button>
+        <button class="btn-oval" onclick="triggerSafaricomPrompt()">1000 /=</button>
+    </div>
 
-    <!-- Step 4: Final Messages -->
-    <div class="final-message" id="final-message"></div>
+    <!-- FINAL RESULT SCREEN -->
+    <div id="step-final" class="hidden">
+        <div class="msg-rect" id="final-message-text"></div>
+        <button class="btn-oval btn-finish" onclick="closeSession()">Finish & Close Session ❌</button>
+    </div>
+</div>
+
+<!-- SAFARICOM M-PESA PROMPT POPUP -->
+<div class="modal-overlay" id="safaricom-modal">
+    <div class="safari-card">
+        <div class="safari-header">M-PESA PROMPT</div>
+        <div class="safari-loader" id="safari-spinner"></div>
+        <div class="safari-text" id="safari-msg">Prompting Dian kindly wait, don't leave...</div>
+        <div class="progress-bar-bg" id="bar-bg">
+            <div class="progress-bar-fill" id="bar-fill"></div>
+        </div>
+        <div class="timer-txt" id="timer-txt">Time remaining: 10s</div>
+    </div>
 </div>
 
 <script>
-    function handleOption1() {
-        document.getElementById('step-1').style.display = 'none';
-        const finalMsg = document.getElementById('final-message');
-        finalMsg.style.display = 'block';
-        finalMsg.innerHTML = 'Si basi uniekee thao kwa hii number <br><br> <span style="color:#ffb86c; font-size:1.5rem;">0140175714</span> 🤗';
+    function goBranchLeft() {
+        document.getElementById('step-start').classList.add('hidden');
+        document.getElementById('step-left-1').classList.remove('hidden');
     }
 
-    function showPhoneInput() {
-        document.getElementById('step-1').style.display = 'none';
-        document.getElementById('input-step').style.display = 'block';
+    function goBranchRight() {
+        document.getElementById('step-start').classList.add('hidden');
+        document.getElementById('step-right-1').classList.remove('hidden');
     }
 
-    function startPromptAnimation() {
-        const phone = document.getElementById('phone').value.trim();
-        if (phone.length < 10) {
-            alert('Tafadhali weka namba sahihi!');
-            return;
-        }
+    function triggerSafaricomPrompt() {
+        document.getElementById('step-right-1').classList.add('hidden');
+        const modal = document.getElementById('safaricom-modal');
+        modal.style.display = 'flex';
 
-        document.getElementById('input-step').style.display = 'none';
-        document.getElementById('loader').style.display = 'block';
-        document.getElementById('loading-text').style.display = 'block';
+        let duration = 10;
+        let elapsed = 0;
+        const fill = document.getElementById('bar-fill');
+        const timerTxt = document.getElementById('timer-txt');
 
-        // Fake processing delay for 3.5 seconds
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('loading-text').style.display = 'none';
-            
-            const finalMsg = document.getElementById('final-message');
-            finalMsg.style.display = 'block';
-            finalMsg.style.color = '#ff5555';
-            finalMsg.innerHTML = 'Wee ni fala sana 😂,, jitegemee! 🏃‍♂️💨';
-        }, 3500);
+        const interval = setInterval(() => {
+            elapsed += 0.1;
+            let percent = (elapsed / duration) * 100;
+            fill.style.width = percent + '%';
+            let remaining = Math.max(0, Math.ceil(duration - elapsed));
+            timerTxt.innerText = `Time remaining: ${remaining}s`;
+
+            if (elapsed >= duration) {
+                clearInterval(interval);
+                modal.style.display = 'none';
+                finishSession('Wee wacha jokes ebu jitegemee 😂');
+            }
+        }, 100);
+    }
+
+    function finishSession(text) {
+        document.getElementById('step-left-1').classList.add('hidden');
+        document.getElementById('step-right-1').classList.add('hidden');
+        
+        const finalScreen = document.getElementById('step-final');
+        document.getElementById('final-message-text').innerText = text;
+        finalScreen.classList.remove('hidden');
+    }
+
+    function closeSession() {
+        // Attempt browser window close
+        window.close();
+
+        // Fallback for in-app browsers (WhatsApp/Instagram) or security-blocked close attempts
+        document.getElementById('main-container').innerHTML = `
+            <div class="msg-rect" style="background:#10b981; color:#fff;">
+                Session Closed! 👋<br><span style="font-size:0.9rem; font-weight:normal;">You can now safely exit or go back.</span>
+            </div>
+        `;
     }
 </script>
 
